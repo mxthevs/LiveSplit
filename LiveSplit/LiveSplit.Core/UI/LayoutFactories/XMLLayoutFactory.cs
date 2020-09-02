@@ -100,6 +100,7 @@ namespace LiveSplit.UI.LayoutFactories
             layout.HorizontalWidth = SettingsHelper.ParseInt(parent["HorizontalWidth"]);
             layout.HorizontalHeight = SettingsHelper.ParseInt(parent["HorizontalHeight"]);
             layout.Mode = SettingsHelper.ParseEnum<LayoutMode>(parent["Mode"]);
+            layout.SplitAt = SettingsHelper.ParseInt(parent["SplitAt"]);
             layout.Settings = ParseSettings(parent["Settings"], version);
 
             var components = parent["Components"];

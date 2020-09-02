@@ -43,17 +43,19 @@
             this.rdoVertical = new System.Windows.Forms.RadioButton();
             this.btnSetSize = new System.Windows.Forms.Button();
             this.menuAddComponents = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.comboSplitAt = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 7;
+            this.tableLayoutPanel1.ColumnCount = 8;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 94F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 81F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 78F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 74F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 89F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 88F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
@@ -63,13 +65,14 @@
             this.tableLayoutPanel1.Controls.Add(this.btnRemove, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.btnMoveUp, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.btnMoveDown, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.btnCancel, 6, 6);
-            this.tableLayoutPanel1.Controls.Add(this.btnOK, 5, 6);
+            this.tableLayoutPanel1.Controls.Add(this.btnCancel, 7, 6);
+            this.tableLayoutPanel1.Controls.Add(this.btnOK, 6, 6);
             this.tableLayoutPanel1.Controls.Add(this.btnLayoutSettings, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.lbxComponents, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.rdoHorizontal, 3, 6);
             this.tableLayoutPanel1.Controls.Add(this.rdoVertical, 4, 6);
             this.tableLayoutPanel1.Controls.Add(this.btnSetSize, 2, 6);
+            this.tableLayoutPanel1.Controls.Add(this.comboSplitAt, 5, 6);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -81,7 +84,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(544, 320);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(642, 320);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // btnAdd
@@ -156,7 +159,7 @@
             // 
             this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(459, 287);
+            this.btnCancel.Location = new System.Drawing.Point(557, 287);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
@@ -168,7 +171,7 @@
             // btnOK
             // 
             this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnOK.Location = new System.Drawing.Point(378, 287);
+            this.btnOK.Location = new System.Drawing.Point(476, 287);
             this.btnOK.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
@@ -191,14 +194,14 @@
             // 
             // lbxComponents
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.lbxComponents, 6);
+            this.tableLayoutPanel1.SetColumnSpan(this.lbxComponents, 7);
             this.lbxComponents.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbxComponents.FormattingEnabled = true;
             this.lbxComponents.Location = new System.Drawing.Point(51, 10);
             this.lbxComponents.Margin = new System.Windows.Forms.Padding(3, 10, 10, 10);
             this.lbxComponents.Name = "lbxComponents";
             this.tableLayoutPanel1.SetRowSpan(this.lbxComponents, 6);
-            this.lbxComponents.Size = new System.Drawing.Size(483, 264);
+            this.lbxComponents.Size = new System.Drawing.Size(581, 264);
             this.lbxComponents.TabIndex = 4;
             this.lbxComponents.DoubleClick += new System.EventHandler(this.lbxComponents_DoubleClick);
             this.lbxComponents.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbxComponents_MouseDoubleClick);
@@ -245,12 +248,31 @@
             this.menuAddComponents.Name = "menuAddComponents";
             this.menuAddComponents.Size = new System.Drawing.Size(61, 4);
             // 
+            // comboSplitAt
+            // 
+            this.comboSplitAt.FormattingEnabled = true;
+            this.comboSplitAt.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"});
+            this.comboSplitAt.Location = new System.Drawing.Point(378, 287);
+            this.comboSplitAt.Name = "comboSplitAt";
+            this.comboSplitAt.Size = new System.Drawing.Size(61, 21);
+            this.comboSplitAt.TabIndex = 11;
+            // 
             // LayoutEditorDialog
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(544, 320);
+            this.ClientSize = new System.Drawing.Size(642, 320);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(560, 306);
@@ -277,5 +299,6 @@
         private System.Windows.Forms.RadioButton rdoHorizontal;
         private System.Windows.Forms.RadioButton rdoVertical;
         private System.Windows.Forms.Button btnSetSize;
+        private System.Windows.Forms.ComboBox comboSplitAt;
     }
 }

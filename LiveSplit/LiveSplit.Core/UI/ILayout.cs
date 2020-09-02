@@ -12,6 +12,7 @@ namespace LiveSplit.UI
         int VerticalHeight { get; set; }
         int HorizontalWidth { get; set; }
         int HorizontalHeight { get; set; }
+        int SplitAt { get; set; }
         int X { get; set; }
         int Y { get; set; }
         bool HasChanged { get; set; }

@@ -41,6 +41,11 @@ namespace LiveSplit.View
             }
         }
         protected bool IsHorizontal { get { return !IsVertical; } set { IsVertical = !value; } }
+        protected int SplitAt { get { return Layout.SplitAt; } set
+            {
+                Layout.SplitAt = value;
+            }
+        }
         public LayoutEditorDialog(ILayout layout, LiveSplitState state, Form form)
         {
             InitializeComponent();
@@ -57,9 +62,19 @@ namespace LiveSplit.View
             rdoHorizontal.Checked = IsHorizontal;
             rdoVertical.CheckedChanged += rdoVertical_CheckedChanged;
 
+            comboSplitAt.SelectedItem = SplitAt.ToString();
+            comboSplitAt.SelectedValueChanged += ComboSplitAt_SelectedValueChanged;
+
             CurrentState = state;
             var itemDragger = new ListBoxItemDragger(lbxComponents, form);
             itemDragger.DragCursor = Cursors.SizeAll;
+        }
+
+        private void ComboSplitAt_SelectedValueChanged(object sender, EventArgs e)
+        {
+            Layout.HasChanged = true;
+            SplitAt = int.Parse(comboSplitAt.SelectedItem.ToString());
+            OrientationSwitched?.Invoke(this, null);
         }
 
         void rdoVertical_CheckedChanged(object sender, EventArgs e)

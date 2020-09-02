@@ -1,8 +1,10 @@
 ﻿using LiveSplit.Model;
 using LiveSplit.Options;
+using LiveSplitCore;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 
 namespace LiveSplit.UI.Components
@@ -20,6 +22,14 @@ namespace LiveSplit.UI.Components
             => !VisibleComponents.Any() ? 0 : VisibleComponents.Max(x => x.MinimumHeight);
 
         protected bool errorInComponent;
+
+        public int SplitAt = 0;
+
+        private bool HasTwoLines { get
+            {
+                return SplitAt > 0 && SplitAt < VisibleComponents.Count();
+            }
+        }
 
         private void DrawVerticalComponent(int index, Graphics g, LiveSplitState state, float width, float height, Region clipRegion)
         {
@@ -124,6 +134,7 @@ namespace LiveSplit.UI.Components
         public void CalculateOverallSize(LayoutMode mode)
         {
             var totalSize = 0f;
+            var totalSize2 = 1f;
             var index = 0;
             foreach (var component in VisibleComponents)
             {
@@ -132,9 +143,14 @@ namespace LiveSplit.UI.Components
                 else
                     totalSize += GetWidthHorizontal(index);
                 index++;
+                if (HasTwoLines && index == SplitAt)
+                {
+                    totalSize2 = Math.Max(totalSize2, totalSize);
+                    totalSize = 0;
+                }
             }
 
-            OverallSize = Math.Max(totalSize, 1f);
+            OverallSize = Math.Max(totalSize, totalSize2);
         }
 
         public void Render(Graphics g, LiveSplitState state, float width, float height, LayoutMode mode, Region clipRegion)
@@ -147,11 +163,32 @@ namespace LiveSplit.UI.Components
                     var transform = g.Transform;
                     var crashedComponents = new List<IComponent>();
                     var index = 0;
+
+                    if (HasTwoLines)
+                    {
+                        // Currently width/height doesn't seem to affect anything else
+                        width = width / 2;
+                        height = height / 2;
+                    }
+
                     foreach (var component in VisibleComponents)
                     {
+                        //Console.WriteLine(component);
                         try
                         {
                             g.Clip = clip;
+                            if (HasTwoLines && index == SplitAt)
+                            {
+                                g.Transform = transform;
+                                if (mode == LayoutMode.Vertical)
+                                {
+                                    g.TranslateTransform(width, 0f);
+                                }
+                                else
+                                {
+                                    g.TranslateTransform(0f, height);
+                                }
+                            }
                             if (mode == LayoutMode.Vertical)
                                 DrawVerticalComponent(index, g, state, width, height, clipRegion);
                             else
@@ -193,7 +230,15 @@ namespace LiveSplit.UI.Components
             var bottomPadding = Math.Min(GetPaddingBelow(index), component.PaddingBottom) / 2f;
             var totalHeight = scaleFactor * (component.VerticalHeight - topPadding - bottomPadding);
             component.Update(invalidator, state, width, totalHeight, LayoutMode.Vertical);
-            invalidator.Transform.Translate(0.0f, totalHeight);
+            if (HasTwoLines && SplitAt-1 == index)
+            {
+                invalidator.Transform.Reset();
+                invalidator.Transform.Translate(width, 0f);
+            }
+            else
+            {
+                invalidator.Transform.Translate(0.0f, totalHeight);
+            }
         }
 
         protected void InvalidateHorizontalComponent(int index, LiveSplitState state, IInvalidator invalidator, float width, float height, float scaleFactor)
@@ -203,11 +248,31 @@ namespace LiveSplit.UI.Components
             var rightPadding = Math.Min(GetPaddingToRight(index), component.PaddingRight) / 2f;
             var totalWidth = scaleFactor * (component.HorizontalWidth - leftPadding - rightPadding);
             component.Update(invalidator, state, totalWidth, height, LayoutMode.Horizontal);
-            invalidator.Transform.Translate(totalWidth, 0.0f);
+            if (HasTwoLines && SplitAt-1 == index)
+            {
+                invalidator.Transform.Reset();
+                invalidator.Transform.Translate(0f, height);
+            }
+            else
+            {
+                invalidator.Transform.Translate(totalWidth, 0.0f);
+            }
         }
 
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
         {
+            if (HasTwoLines)
+            {
+                if (mode == LayoutMode.Vertical)
+                {
+                    width = width / 2;
+                }
+                else
+                {
+                    height = height / 2;
+                }
+            }
+
             var oldTransform = invalidator.Transform.Clone();
             var scaleFactor = mode == LayoutMode.Vertical
                     ? height / OverallSize
@@ -223,5 +288,6 @@ namespace LiveSplit.UI.Components
             }
             invalidator.Transform = oldTransform;
         }
+
     }
 }

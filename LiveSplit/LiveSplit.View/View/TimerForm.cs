@@ -2261,6 +2261,12 @@ namespace LiveSplit.View
             }
             Layout = layout;
             ComponentRenderer.VisibleComponents = Layout.Components;
+            ComponentRenderer.SplitAt = Layout.SplitAt;
+            for (var i=0; i < ComponentRenderer.VisibleComponents.Count(); i++)
+            {
+                var comp = ComponentRenderer.VisibleComponents.ElementAt(i);
+                Console.WriteLine(comp);
+            }
             CurrentState.LayoutSettings = layout.Settings;
             UpdateRefreshesRemaining();
             MinimumSize = new Size(0, 0);

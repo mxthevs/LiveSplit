@@ -52,6 +52,7 @@ namespace LiveSplit.UI.LayoutSavers
             }
 
             var hashCode = SettingsHelper.CreateSetting(document, parent, "Mode", layout.Mode)
+                ^ SettingsHelper.CreateSetting(document, parent, "SplitAt", layout.SplitAt)
                 ^ SettingsHelper.CreateSetting(document, parent, "X", layout.X)
                 ^ SettingsHelper.CreateSetting(document, parent, "Y", layout.Y)
                 ^ SettingsHelper.CreateSetting(document, parent, "VerticalWidth", layout.VerticalWidth)

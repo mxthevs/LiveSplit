@@ -16,6 +16,8 @@ namespace LiveSplit.UI
 
         public LayoutMode Mode { get; set; }
 
+        public int SplitAt { get; set; }
+
         public Layout()
         {
             LayoutComponents = new List<ILayoutComponent>();
@@ -46,7 +48,8 @@ namespace LiveSplit.UI
                 Y = Y,
                 HasChanged = HasChanged,
                 Settings = (LayoutSettings)Settings.Clone(),
-                Mode = Mode
+                Mode = Mode,
+                SplitAt = SplitAt
             };
         }
     }
