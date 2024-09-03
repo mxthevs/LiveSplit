@@ -36,7 +36,7 @@ jobs:
           -v m
           -c Release
           -p:DebugType=None
-          .\LiveSplit.sln
+          LiveSplit\LiveSplit.sln.sln
 
       - name: Build UpdateManager.exe
         run: >
