@@ -21,6 +21,7 @@ namespace LiveSplit
                 Application.SetCompatibleTextRenderingDefault(false);
                 Environment.CurrentDirectory = Path.GetDirectoryName(Application.ExecutablePath);
 
+
 #if !DEBUG
                 FiletypeRegistryHelper.RegisterFileFormatsIfNotAlreadyRegistered();
 #endif
