@@ -28,7 +28,7 @@ jobs:
       - name: Set up .NET environment
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '4.6.1'
+          dotnet-version: '4.x'
 
       - name: Build LiveSplit
         run: >
